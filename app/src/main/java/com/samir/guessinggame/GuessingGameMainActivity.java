@@ -1,7 +1,11 @@
 package com.samir.guessinggame;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,7 +18,11 @@ public class GuessingGameMainActivity extends AppCompatActivity implements Guess
 
     private GuessingGame guessingGame;
     private TextView textView;
-    private EditText editText;
+
+    private String newAttribute;
+    private String newAnimal;
+
+    private boolean isAskingForAttribute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +33,14 @@ public class GuessingGameMainActivity extends AppCompatActivity implements Guess
 
         textView = (TextView) findViewById(R.id.id_text);
 
-        editText = (EditText) findViewById(R.id.id_user_input);
-        editText.setVisibility(View.INVISIBLE);
-
+        isAskingForAttribute = true;
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
         guessingGame.start();
     }
 
@@ -50,8 +57,19 @@ public class GuessingGameMainActivity extends AppCompatActivity implements Guess
 
     @Override
     public void askNewAttribute() {
-        textView.setText("Aninal?");
-        editText.setVisibility(View.VISIBLE);
+        isAskingForAttribute = true;
+        showInputDialog();
+    }
+
+    @Override
+    public void askNewAnimal() {
+        isAskingForAttribute = false;
+        showInputDialog();
+    }
+
+    @Override
+    public void inputNewAttributeAnimal() {
+        guessingGame.learnAttributeForAnimal(newAttribute, newAnimal);
     }
 
     public void answerYes(View view) {
@@ -62,8 +80,43 @@ public class GuessingGameMainActivity extends AppCompatActivity implements Guess
         guessingGame.no();
     }
 
-    public void include(View view) {
-        final String input = editText.getText().toString();
+    protected void showInputDialog() {
+
+        // get prompts.xml view
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setView(promptView);
+
+        final EditText editText = (EditText) promptView.findViewById(R.id.edittext);
+        // setup a dialog window
+        alertDialogBuilder.setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        final Editable text = editText.getText();
+
+                        final String value = text.toString();
+
+                        if (isAskingForAttribute) {
+                            newAttribute = value;
+                            guessingGame.newAttributeDone();
+                        } else {
+                            newAnimal = value;
+                            guessingGame.newAnimalDone();
+                        }
+
+                    }
+                })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create an alert dialog
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
     }
 
 }

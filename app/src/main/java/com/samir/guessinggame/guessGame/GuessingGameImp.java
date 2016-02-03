@@ -4,6 +4,8 @@ package com.samir.guessinggame.guessGame;
 import com.samir.guessinggame.guessGame.engine.GuessingGameEngine;
 import com.samir.guessinggame.guessGame.engine.GuessingGameEngineFactory;
 import com.samir.guessinggame.guessGame.engine.Status;
+import com.samir.guessinggame.guessGame.model.Animal;
+import com.samir.guessinggame.guessGame.model.Attribute;
 import com.samir.guessinggame.guessGame.model.ResponseType;
 
 public class GuessingGameImp implements GuessingGame {
@@ -65,6 +67,29 @@ public class GuessingGameImp implements GuessingGame {
     public boolean isFinished() {
         final Status status = guessingGameEngine.getStatus();
         return Status.FINISHED_WIN.equals(status);
+    }
+
+    @Override
+    public void learnAttributeForAnimal(String newAttribute, String newAnimal) {
+
+        final Attribute newAttributeAnimal = new Attribute(newAttribute);
+
+        final Animal animal = new Animal(newAnimal);
+
+        guessingGameEngine.learnAttributeForAnimal(newAttributeAnimal, animal);
+
+        guessingGameEngine.start();
+
+    }
+
+    @Override
+    public void newAttributeDone() {
+        delegate.askNewAnimal();
+    }
+
+    @Override
+    public void newAnimalDone() {
+        delegate.inputNewAttributeAnimal();
     }
 
 

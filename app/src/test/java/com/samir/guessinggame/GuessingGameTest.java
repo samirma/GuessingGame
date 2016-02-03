@@ -32,6 +32,16 @@ public class GuessingGameTest {
                 Assert.assertEquals("Shark", animal);
             }
 
+            @Override
+            public void askNewAttribute() {
+
+            }
+
+            @Override
+            public void askNewAnimal() {
+
+            }
+
         });
 
         guessingGame.start();
