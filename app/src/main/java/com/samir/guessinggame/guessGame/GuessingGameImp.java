@@ -21,6 +21,10 @@ public class GuessingGameImp implements GuessingGame {
     @Override
     public void start() {
         guessingGameEngine.start();
+        askForAttibute();
+    }
+
+    private void askForAttibute() {
         final String attributeName = guessingGameEngine.getAttributeName();
         delegate.askForAttribute(attributeName);
     }
@@ -31,6 +35,13 @@ public class GuessingGameImp implements GuessingGame {
         if (Status.WAITING_ANSWER_FOR_ATTRIBUTE.equals(status)) {
 
             final ResponseType responseType = guessingGameEngine.youLost();
+
+            if (ResponseType.GO_TO_LEARNING_MODE.equals(responseType)) {
+                delegate.askNewAttribute();
+            } else {
+                askForAttibute();
+            }
+
 
         } else if (Status.WAITING_ANSWER_FOR_ANIMAL.equals(status)) {
             guessingGameEngine.yesForAttribute();

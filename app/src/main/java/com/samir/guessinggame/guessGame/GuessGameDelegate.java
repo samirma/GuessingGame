@@ -7,4 +7,5 @@ public interface GuessGameDelegate {
 
     void takeAGuess(final String animal);
 
+    void askNewAttribute();
 }
