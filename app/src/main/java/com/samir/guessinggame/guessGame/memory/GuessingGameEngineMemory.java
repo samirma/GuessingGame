@@ -46,12 +46,27 @@ public class GuessingGameEngineMemory implements GuessingGameEngine {
 
         final Attribute nextAttribute = current.getNextAttribute();
         if (nextAttribute == null) {
-            result = ResponseType.GO_TO_LEARNING_MODE;
-            status = Status.LEARNING;
+
+            if (Status.WAITING_ANSWER_FOR_ATTRIBUTE.equals(status)) {
+                result = ResponseType.GO_TO_ALTERNATIVE_NEXT_GUESS;
+                status = Status.WAITING_ANSWER_FOR_ANIMAL;
+            } else {
+                result = ResponseType.GO_TO_LEARNING_MODE;
+                status = Status.LEARNING;
+            }
+
         } else {
-            result = ResponseType.GO_TO_NEXT_GUESS;
-            current = nextAttribute;
+
+            if (!Status.CHECKING_NEXT_ATTIBUTE.equals(status)) {
+                result = ResponseType.CHECK_NEXT_ATTRIBUTE;
+                status = Status.CHECKING_NEXT_ATTIBUTE;
+            } else {
+                result = ResponseType.GO_TO_NEXT_GUESS;
+                current = nextAttribute;
+            }
+
         }
+
         return result;
     }
 
@@ -70,5 +85,10 @@ public class GuessingGameEngineMemory implements GuessingGameEngine {
     @Override
     public Status getStatus() {
         return status;
+    }
+
+    @Override
+    public String getAlternativeAnimal() {
+        return current.getAlternativeAnimal().getName();
     }
 }

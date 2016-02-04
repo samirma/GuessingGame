@@ -6,6 +6,8 @@ public class Attribute {
     private Attribute nextAttribute;
     private Animal animal;
 
+    private Animal alternativeAnimal;
+
     public Attribute(String name) {
         this.name = name;
     }
@@ -32,5 +34,13 @@ public class Attribute {
 
     public void setNextAttribute(Attribute nextAttribute) {
         this.nextAttribute = nextAttribute;
+    }
+
+    public Animal getAlternativeAnimal() {
+        return alternativeAnimal;
+    }
+
+    public void setAlternativeAnimal(Animal alternativeAnimal) {
+        this.alternativeAnimal = alternativeAnimal;
     }
 }

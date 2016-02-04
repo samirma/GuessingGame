@@ -24,4 +24,6 @@ public interface GuessingGameEngine {
     void learnAttributeForAnimal(Attribute newAttributeAnimal, Animal animal);
 
     Status getStatus();
+
+    String getAlternativeAnimal();
 }

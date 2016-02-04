@@ -90,6 +90,11 @@ public class GuessingGameMainActivity extends AppCompatActivity implements Guess
         toast.show();
     }
 
+    @Override
+    public void takeAAlternativeGuess(String alternativeAnimal) {
+        takeAGuess(alternativeAnimal);
+    }
+
     public void answerYes(View view) {
         guessingGame.yes();
     }

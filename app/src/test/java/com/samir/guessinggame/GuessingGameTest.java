@@ -42,6 +42,16 @@ public class GuessingGameTest {
 
             }
 
+            @Override
+            public void inputNewAttributeAnimal() {
+
+            }
+
+            @Override
+            public void youWin() {
+
+            }
+
         });
 
         guessingGame.start();

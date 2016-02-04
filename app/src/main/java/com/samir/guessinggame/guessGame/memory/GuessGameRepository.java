@@ -23,9 +23,12 @@ public class GuessGameRepository {
     @NonNull
     private static Attribute getNewAttribute() {
         final Attribute attribute = new Attribute("live on water");
-        final Animal animal = new Animal("Shark");
 
+        final Animal animal = new Animal("Shark");
         attribute.setAnimal(animal);
+
+        final Animal alternativeAnimal = new Animal("Monkey");
+        attribute.setAlternativeAnimal(alternativeAnimal);
 
         return attribute;
     }
