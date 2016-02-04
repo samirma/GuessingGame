@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.samir.guessinggame.guessGame.GuessGameDelegate;
 import com.samir.guessinggame.guessGame.GuessingGame;
@@ -21,6 +22,9 @@ public class GuessingGameMainActivity extends AppCompatActivity implements Guess
 
     private String newAttribute;
     private String newAnimal;
+
+    private String oldAttribute;
+    private String oldAnimal;
 
     private boolean isAskingForAttribute;
 
@@ -47,29 +51,43 @@ public class GuessingGameMainActivity extends AppCompatActivity implements Guess
 
     @Override
     public void askForAttribute(String attribute) {
-        textView.setText(attribute + "?");
+        oldAttribute = attribute;
+        final String question = String.format("Does the animal that you thought about %s?", attribute);
+        textView.setText(question);
     }
 
     @Override
     public void takeAGuess(String animal) {
-        textView.setText(animal + "?");
+        oldAnimal = animal;
+        final String question = String.format("Is the animal that you thought about a %s?", animal);
+        textView.setText(question);
     }
 
     @Override
     public void askNewAttribute() {
         isAskingForAttribute = true;
-        showInputDialog();
+        final String question = String.format("A %s _____ but a %s does not (Fill it an animal trait, like '%s'", newAnimal, oldAnimal, oldAttribute);
+        showInputDialog(question);
     }
 
     @Override
     public void askNewAnimal() {
         isAskingForAttribute = false;
-        showInputDialog();
+        showInputDialog("What was the animal that you thought about?");
     }
 
     @Override
     public void inputNewAttributeAnimal() {
         guessingGame.learnAttributeForAnimal(newAttribute, newAnimal);
+    }
+
+    @Override
+    public void youWin() {
+        CharSequence text = "I win again!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(this, text, duration);
+        toast.show();
     }
 
     public void answerYes(View view) {
@@ -80,13 +98,17 @@ public class GuessingGameMainActivity extends AppCompatActivity implements Guess
         guessingGame.no();
     }
 
-    protected void showInputDialog() {
+    protected void showInputDialog(final String titleText) {
 
         // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(promptView);
+
+        TextView title = (TextView) promptView.findViewById(R.id.id_question);
+
+        title.setText(titleText);
 
         final EditText editText = (EditText) promptView.findViewById(R.id.edittext);
         // setup a dialog window

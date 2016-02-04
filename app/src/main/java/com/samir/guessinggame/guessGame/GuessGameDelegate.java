@@ -12,4 +12,6 @@ public interface GuessGameDelegate {
     void askNewAnimal();
 
     void inputNewAttributeAnimal();
+
+    void youWin();
 }

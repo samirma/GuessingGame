@@ -60,6 +60,7 @@ public class GuessingGameImp implements GuessingGame {
 
         } else if (Status.WAITING_ANSWER_FOR_ANIMAL.equals(status)) {
             guessingGameEngine.youWin();
+            delegate.youWin();
         }
     }
 
