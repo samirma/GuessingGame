@@ -8,8 +8,6 @@ public interface GuessingGame {
 
     void yes();
 
-    boolean isFinished();
-
     void learnAttributeForAnimal(String newAttribute, String newAnimal);
 
     void newAttributeDone();

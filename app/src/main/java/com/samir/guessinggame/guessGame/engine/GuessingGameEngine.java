@@ -7,15 +7,16 @@ import com.samir.guessinggame.guessGame.model.ResponseType;
 
 public interface GuessingGameEngine {
 
-    String getAttributeName();
 
     void reset();
 
     void start();
 
-    void yesForAttribute();
+    ResponseType yesForAttribute();
 
-    String getAnimalName();
+    ResponseType noForAttribute();
+
+    String getNodeName();
 
     ResponseType youLost();
 
@@ -24,6 +25,4 @@ public interface GuessingGameEngine {
     void learnAttributeForAnimal(Attribute newAttributeAnimal, Animal animal);
 
     Status getStatus();
-
-    String getAlternativeAnimal();
 }

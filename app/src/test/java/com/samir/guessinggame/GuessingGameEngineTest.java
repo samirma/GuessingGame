@@ -1,7 +1,7 @@
 package com.samir.guessinggame;
 
-import com.samir.guessinggame.guessGame.engine.GuessingGameEngineFactory;
 import com.samir.guessinggame.guessGame.engine.GuessingGameEngine;
+import com.samir.guessinggame.guessGame.engine.GuessingGameEngineFactory;
 import com.samir.guessinggame.guessGame.engine.Status;
 import com.samir.guessinggame.guessGame.model.Animal;
 import com.samir.guessinggame.guessGame.model.Attribute;
@@ -22,7 +22,7 @@ public class GuessingGameEngineTest {
 
         guessingGameEngine.yesForAttribute();
 
-        String animalName = guessingGameEngine.getAnimalName();
+        String animalName = guessingGameEngine.getNodeName();
 
         Assert.assertNotNull(animalName);
 
@@ -72,7 +72,7 @@ public class GuessingGameEngineTest {
 
         guessingGameEngine.yesForAttribute();
 
-        String animalName = guessingGameEngine.getAnimalName();
+        String animalName = guessingGameEngine.getNodeName();
 
         Assert.assertNotNull(animalName);
 

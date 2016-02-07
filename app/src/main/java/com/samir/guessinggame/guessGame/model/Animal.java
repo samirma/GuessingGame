@@ -1,18 +1,14 @@
 package com.samir.guessinggame.guessGame.model;
 
 
-public class Animal {
-    private String name;
+public class Animal extends Node {
 
     public Animal(String name) {
-        this.name = name;
+        super(name);
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
+    @Override
+    public boolean isAttribute() {
+        return false;
     }
 }

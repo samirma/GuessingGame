@@ -1,22 +1,21 @@
 package com.samir.guessinggame.guessGame.memory;
 
 
+import android.support.annotation.NonNull;
+
 import com.samir.guessinggame.guessGame.engine.GuessingGameEngine;
 import com.samir.guessinggame.guessGame.engine.Status;
 import com.samir.guessinggame.guessGame.model.Animal;
 import com.samir.guessinggame.guessGame.model.Attribute;
+import com.samir.guessinggame.guessGame.model.Node;
 import com.samir.guessinggame.guessGame.model.ResponseType;
 
 public class GuessingGameEngineMemory implements GuessingGameEngine {
 
-    private Attribute current;
+    private Node current;
 
     private Status status;
 
-    @Override
-    public String getAttributeName() {
-        return current.getName();
-    }
 
     @Override
     public void reset() {
@@ -30,13 +29,33 @@ public class GuessingGameEngineMemory implements GuessingGameEngine {
     }
 
     @Override
-    public void yesForAttribute() {
-        status = Status.WAITING_ANSWER_FOR_ANIMAL;
+    public ResponseType yesForAttribute() {
+        current = current.getYesNode();
+        return getAttributeResponseType();
+    }
+
+    @NonNull
+    private ResponseType getAttributeResponseType() {
+        ResponseType result;
+        if (current.isAttribute()) {
+            result = ResponseType.CHECK_NEXT_ATTRIBUTE;
+        } else {
+            result = ResponseType.GO_TO_NEXT_GUESS;
+            status = Status.WAITING_ANSWER_FOR_ANIMAL;
+        }
+
+        return result;
     }
 
     @Override
-    public String getAnimalName() {
-        return current.getAnimal().getName();
+    public ResponseType noForAttribute() {
+        current = current.getNoNode();
+        return getAttributeResponseType();
+    }
+
+    @Override
+    public String getNodeName() {
+        return current.getName();
     }
 
     @Override
@@ -44,28 +63,8 @@ public class GuessingGameEngineMemory implements GuessingGameEngine {
 
         ResponseType result;
 
-        final Attribute nextAttribute = current.getNextAttribute();
-        if (nextAttribute == null) {
-
-            if (Status.WAITING_ANSWER_FOR_ATTRIBUTE.equals(status)) {
-                result = ResponseType.GO_TO_ALTERNATIVE_NEXT_GUESS;
-                status = Status.WAITING_ANSWER_FOR_ANIMAL;
-            } else {
-                result = ResponseType.GO_TO_LEARNING_MODE;
-                status = Status.LEARNING;
-            }
-
-        } else {
-
-            if (!Status.CHECKING_NEXT_ATTIBUTE.equals(status)) {
-                result = ResponseType.CHECK_NEXT_ATTRIBUTE;
-                status = Status.CHECKING_NEXT_ATTIBUTE;
-            } else {
-                result = ResponseType.GO_TO_NEXT_GUESS;
-                current = nextAttribute;
-            }
-
-        }
+        result = ResponseType.GO_TO_LEARNING_MODE;
+        status = Status.LEARNING;
 
         return result;
     }
@@ -73,13 +72,21 @@ public class GuessingGameEngineMemory implements GuessingGameEngine {
     @Override
     public void youWin() {
         reset();
-        status = Status.FINISHED_WIN;
+        status = Status.WAITING_ANSWER_FOR_ATTRIBUTE;
     }
 
     @Override
     public void learnAttributeForAnimal(Attribute newAttributeAnimal, Animal animal) {
-        newAttributeAnimal.setAnimal(animal);
-        current.setNextAttribute(newAttributeAnimal);
+        final Node parent = current.getParent();
+
+        if (parent.getNoNode().equals(current)) {
+            parent.setNoNode(newAttributeAnimal);
+        } else {
+            parent.setYesNode(newAttributeAnimal);
+        }
+        newAttributeAnimal.setYesNode(animal);
+        newAttributeAnimal.setNoNode(current);
+
     }
 
     @Override
@@ -87,8 +94,4 @@ public class GuessingGameEngineMemory implements GuessingGameEngine {
         return status;
     }
 
-    @Override
-    public String getAlternativeAnimal() {
-        return current.getAlternativeAnimal().getName();
-    }
 }

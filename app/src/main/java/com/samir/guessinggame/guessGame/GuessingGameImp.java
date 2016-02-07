@@ -27,7 +27,7 @@ public class GuessingGameImp implements GuessingGame {
     }
 
     private void askForAttibute() {
-        final String attributeName = guessingGameEngine.getAttributeName();
+        final String attributeName = guessingGameEngine.getNodeName();
         delegate.askForAttribute(attributeName);
     }
 
@@ -45,25 +45,19 @@ public class GuessingGameImp implements GuessingGame {
     }
 
     private void noForAnimal() {
-        guessingGameEngine.yesForAttribute();
         delegate.askNewAnimal();
     }
 
     private void noForAttribute() {
 
-        final ResponseType responseType = guessingGameEngine.youLost();
+        final ResponseType responseType = guessingGameEngine.noForAttribute();
 
-        if (ResponseType.GO_TO_LEARNING_MODE.equals(responseType)) {
+        if (ResponseType.CHECK_NEXT_ATTRIBUTE.equals(responseType)) {
 
-            delegate.askNewAttribute();
-
-        } if (ResponseType.GO_TO_ALTERNATIVE_NEXT_GUESS.equals(responseType)) {
-
-            final String alternativeAnimal = guessingGameEngine.getAlternativeAnimal();
-            delegate.takeAAlternativeGuess(alternativeAnimal);
+            askForAttibute();
 
         } else {
-            askForAttibute();
+            delegate.takeAGuess(guessingGameEngine.getNodeName());
         }
     }
 
@@ -72,7 +66,7 @@ public class GuessingGameImp implements GuessingGame {
         final Status status = guessingGameEngine.getStatus();
         if (Status.WAITING_ANSWER_FOR_ATTRIBUTE.equals(status)) {
             guessingGameEngine.yesForAttribute();
-            final String animalName = guessingGameEngine.getAnimalName();
+            final String animalName = guessingGameEngine.getNodeName();
             delegate.takeAGuess(animalName);
 
         } else if (Status.WAITING_ANSWER_FOR_ANIMAL.equals(status)) {
@@ -82,11 +76,6 @@ public class GuessingGameImp implements GuessingGame {
         }
     }
 
-    @Override
-    public boolean isFinished() {
-        final Status status = guessingGameEngine.getStatus();
-        return Status.FINISHED_WIN.equals(status);
-    }
 
     @Override
     public void learnAttributeForAnimal(String newAttribute, String newAnimal) {

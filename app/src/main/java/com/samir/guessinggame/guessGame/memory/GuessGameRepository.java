@@ -25,10 +25,10 @@ public class GuessGameRepository {
         final Attribute attribute = new Attribute("live on water");
 
         final Animal animal = new Animal("Shark");
-        attribute.setAnimal(animal);
+        attribute.setYesNode(animal);
 
         final Animal alternativeAnimal = new Animal("Monkey");
-        attribute.setAlternativeAnimal(alternativeAnimal);
+        attribute.setNoNode(alternativeAnimal);
 
         return attribute;
     }
