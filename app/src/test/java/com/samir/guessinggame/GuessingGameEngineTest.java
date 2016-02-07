@@ -30,7 +30,7 @@ public class GuessingGameEngineTest {
 
         Status status = guessingGameEngine.getStatus();
 
-        org.junit.Assert.assertEquals(Status.FINISHED_WIN, status);
+        org.junit.Assert.assertEquals(Status.CHECKING_NEXT_ATTIBUTE, status);
 
     }
 
@@ -56,7 +56,7 @@ public class GuessingGameEngineTest {
 
         org.junit.Assert.assertEquals(ResponseType.GO_TO_NEXT_GUESS, newResponseType);
 
-        String attribute = guessingGameEngine.getAttributeName();
+        String attribute = guessingGameEngine.getNodeName();
 
         org.junit.Assert.assertEquals(fly, attribute);
 
@@ -66,7 +66,7 @@ public class GuessingGameEngineTest {
     private ResponseType startAndGetFirstAnswerWrong(GuessingGameEngine guessingGameEngine) {
         guessingGameEngine.start();
 
-        String attribute = guessingGameEngine.getAttributeName();
+        String attribute = guessingGameEngine.getNodeName();
 
         Assert.assertNotNull(attribute);
 
