@@ -1,7 +1,7 @@
 package com.samir.guessinggame.guessGame.engine;
 
 
-import com.samir.guessinggame.guessGame.memory.GuessingGameEngineMemory;
+import com.samir.guessinggame.guessGame.engine.memory.GuessingGameEngineMemory;
 
 public class GuessingGameEngineFactory {
 

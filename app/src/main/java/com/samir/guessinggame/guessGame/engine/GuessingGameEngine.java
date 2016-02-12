@@ -5,6 +5,9 @@ import com.samir.guessinggame.guessGame.model.Animal;
 import com.samir.guessinggame.guessGame.model.Attribute;
 import com.samir.guessinggame.guessGame.model.ResponseType;
 
+/**
+ * Interface to manage status and current node question
+ */
 public interface GuessingGameEngine {
 
 

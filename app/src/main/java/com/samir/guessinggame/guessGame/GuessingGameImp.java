@@ -8,6 +8,7 @@ import com.samir.guessinggame.guessGame.model.Animal;
 import com.samir.guessinggame.guessGame.model.Attribute;
 import com.samir.guessinggame.guessGame.model.ResponseType;
 
+
 public class GuessingGameImp implements GuessingGame {
 
     final GuessingGameEngine guessingGameEngine;
@@ -38,8 +39,6 @@ public class GuessingGameImp implements GuessingGame {
         if (Status.WAITING_ANSWER_FOR_ATTRIBUTE.equals(status)) {
             noForAttribute();
         } else if (Status.WAITING_ANSWER_FOR_ANIMAL.equals(status)) {
-            noForAnimal();
-        }else if (Status.CHECKING_NEXT_ATTIBUTE.equals(status)) {
             noForAnimal();
         }
     }

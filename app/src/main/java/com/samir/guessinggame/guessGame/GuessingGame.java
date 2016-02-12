@@ -1,6 +1,8 @@
 package com.samir.guessinggame.guessGame;
 
-
+/**
+ * Interface used by gui to interact with guess game
+ */
 public interface GuessingGame {
     void start();
 

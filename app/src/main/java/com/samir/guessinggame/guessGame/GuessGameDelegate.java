@@ -1,8 +1,8 @@
 package com.samir.guessinggame.guessGame;
 
-
-import com.samir.guessinggame.guessGame.engine.Status;
-
+/**
+ * Interface to engine interact to interface
+ */
 public interface GuessGameDelegate {
 
     void askForAttribute(final String attribute);
@@ -16,7 +16,5 @@ public interface GuessGameDelegate {
     void inputNewAttributeAnimal();
 
     void youWin();
-
-    void takeAAlternativeGuess(String alternativeAnimal);
 
 }

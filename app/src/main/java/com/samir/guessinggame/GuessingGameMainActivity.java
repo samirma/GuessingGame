@@ -2,8 +2,8 @@ package com.samir.guessinggame;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,11 +88,6 @@ public class GuessingGameMainActivity extends AppCompatActivity implements Guess
 
         Toast toast = Toast.makeText(this, text, duration);
         toast.show();
-    }
-
-    @Override
-    public void takeAAlternativeGuess(String alternativeAnimal) {
-        takeAGuess(alternativeAnimal);
     }
 
     public void answerYes(View view) {

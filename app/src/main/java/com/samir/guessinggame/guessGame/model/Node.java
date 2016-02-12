@@ -1,6 +1,9 @@
 package com.samir.guessinggame.guessGame.model;
 
 
+/**
+ * Parent Node for tree
+ */
 public abstract class Node {
     private String name;
 

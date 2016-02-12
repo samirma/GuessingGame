@@ -1,4 +1,4 @@
-<resources>
+<resources formatted="false">
     <string name="app_name">Guessing Game</string>
     <string name="yes">yes</string>
     <string name="no">no</string>

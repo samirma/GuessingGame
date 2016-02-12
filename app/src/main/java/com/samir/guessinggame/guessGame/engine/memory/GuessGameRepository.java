@@ -1,4 +1,4 @@
-package com.samir.guessinggame.guessGame.memory;
+package com.samir.guessinggame.guessGame.engine.memory;
 
 
 import android.support.annotation.NonNull;

@@ -46,12 +46,6 @@ public class GuessingGameTest {
 
             }
 
-            @Override
-            public void takeAAlternativeGuess(String alternativeAnimal) {
-
-            }
-
-
         });
 
         guessingGame.start();
