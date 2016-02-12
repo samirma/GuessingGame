@@ -1,7 +1,7 @@
 package com.samir.guessinggame.guessGame;
 
 /**
- * Interface to engine interact to interface
+ * Interface in order to game interact with the GUI
  */
 public interface GuessGameDelegate {
 

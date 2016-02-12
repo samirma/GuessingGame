@@ -8,7 +8,10 @@ import com.samir.guessinggame.guessGame.model.Animal;
 import com.samir.guessinggame.guessGame.model.Attribute;
 import com.samir.guessinggame.guessGame.model.ResponseType;
 
-
+/**
+ * GuessingGameImp act as a controller between to interface and the core engine
+ * This class know which GUI method shuld be called for each status
+ */
 public class GuessingGameImp implements GuessingGame {
 
     final GuessingGameEngine guessingGameEngine;
@@ -83,8 +86,10 @@ public class GuessingGameImp implements GuessingGame {
 
         final Animal animal = new Animal(newAnimal);
 
+        //Save new information
         guessingGameEngine.learnAttributeForAnimal(newAttributeAnimal, animal);
 
+        //Restart the game
         guessingGameEngine.start();
 
         askForAttibute();
