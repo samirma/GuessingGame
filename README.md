@@ -1,2 +1,2 @@
 # GuessingGame
-Simple Guessing Game
+Just a simple Android Guessing Game
